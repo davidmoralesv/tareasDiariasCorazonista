@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <h2>Dashboard de Suscripciones</h2>
+    <a href="{{ url_for('main.new_subscription') }}" style="text-decoration: none; background-color: #007bff; color: white; padding: 10px 15px; border-radius: 5px; font-weight: bold;">+ Nueva Suscripción</a>
+  </div>
+  <p>Gestiona las suscripciones de los clientes al bot de tareas.</p>
+
+  <hr>
+
+  <table border="1" style="width: 100%; border-collapse: collapse; margin-top: 1em;">
+    <thead>
+      <tr style="background-color: #f2f2f2;">
+        <th style="padding: 8px;">ID</th>
+        <th style="padding: 8px;">Email Cliente</th>
+        <th style="padding: 8px;">Número WhatsApp</th>
+        <th style="padding: 8px;">Grado</th>
+        <th style="padding: 8px;">Estado</th>
+        <th style="padding: 8px;">Vence el</th>
+        <th style="padding: 8px;">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for sub in subscriptions %}
+        <tr>
+          <td style="padding: 8px; text-align: center;">{{ sub.id }}</td>
+          <td style="padding: 8px;">{{ sub.customer_email }}</td>
+          <td style="padding: 8px;">{{ sub.whatsapp_number }}</td>
+          <td style="padding: 8px;">{{ sub.grade.name }}</td>
+          <td style="padding: 8px;">{{ sub.status }}</td>
+          <td style="padding: 8px;">{{ sub.subscription_end_date.strftime('%Y-%m-%d') }}</td>
+          <td style="padding: 8px; text-align: center;">
+            {% if sub.status == 'pending' %}
+              <form method="POST" action="{{ url_for('main.activate_subscription', subscription_id=sub.id) }}" style="margin: 0;">
+                <button type="submit" style="cursor: pointer;">Activar Manualmente</button>
+              </form>
+            {% else %}
+              -
+            {% endif %}
+          </td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="6" style="text-align: center; padding: 20px;">No hay suscripciones para mostrar. ¡Crea la primera!</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

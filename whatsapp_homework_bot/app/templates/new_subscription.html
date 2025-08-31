@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Nueva Suscripción{% endblock %}
+
+{% block content %}
+  <h2>Crear Nueva Suscripción</h2>
+  <p>Rellena los datos para crear una nueva suscripción. Esto registrará al cliente en el sistema y generará un enlace de pago único de Wompi para que realice el primer pago y active la suscripción.</p>
+
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <p>
+      {{ form.customer_email.label }}<br>
+      {{ form.customer_email(size=40) }}
+      {% for error in form.customer_email.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+    <p>
+      {{ form.whatsapp_number.label }} (ej. 573001234567)<br>
+      {{ form.whatsapp_number(size=40) }}
+      {% for error in form.whatsapp_number.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+    <p>
+      {{ form.grade.label }}<br>
+      {{ form.grade() }}
+       {% for error in form.grade.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+    <p>{{ form.submit() }}</p>
+  </form>
+{% endblock %}

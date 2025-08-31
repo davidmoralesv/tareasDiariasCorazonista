@@ -1,0 +1,11 @@
+Flask
+Flask-Login
+Flask-WTF
+Flask-SQLAlchemy
+Flask-Migrate
+python-dotenv
+requests
+beautifulsoup4
+gTTS
+APScheduler
+holidays
