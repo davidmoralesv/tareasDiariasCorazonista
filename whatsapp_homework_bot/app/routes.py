@@ -14,7 +14,8 @@ bp = Blueprint('main', __name__)
 @login_required
 def dashboard():
     """Displays the main admin dashboard with a list of subscriptions."""
-    subscriptions = Subscription.query.order_by(Subscription.subscription_end_date.desc()).all()
+    # DEBUG: Temporarily remove database query to isolate the 500 error.
+    subscriptions = []
     return render_template('dashboard.html', title='Dashboard', subscriptions=subscriptions)
 
 @bp.route('/login', methods=['GET', 'POST'])
